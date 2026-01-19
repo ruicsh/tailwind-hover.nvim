@@ -2,6 +2,8 @@
 
 View all applied Tailwind CSS values on an element.
 
+<img src="./assets/screenshot.png" />
+
 ## Installation
 
 ```lua
