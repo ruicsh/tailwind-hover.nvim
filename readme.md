@@ -44,3 +44,7 @@ The currently supported languages are the following:
 - html
 
 Uses HTML parser as fallback.
+
+## Acknowledgments
+
+Inspired by [tw-values.nvim](https://github.com/MaximilianLloyd/tw-values.nvim)
