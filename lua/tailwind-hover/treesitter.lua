@@ -113,7 +113,8 @@ end
 
 local M = {}
 
-M.get_values_at_cursor = function(bufnr)
+-- Get the list of tw-clases at the current cursor position
+M.get_tw_classes_at_cursor = function(bufnr)
 	local node = vim.treesitter.get_node({ bufnr = bufnr, ignore_injections = false })
 	if node == nil then
 		print("No node found")
@@ -156,7 +157,7 @@ end
 M.parse_with_tailwind = function(params, cb)
 	local bufnr = params.bufnr
 	local range = params.range
-	local str = params.str
+	local input = params.input
 
 	local tw = get_tw_client()
 	if tw == nil then
@@ -164,21 +165,20 @@ M.parse_with_tailwind = function(params, cb)
 		return
 	end
 
-	local main_statements = {}
-	local helper_classes = {}
+	local css_classes = {}
 	local unknown_classes = {}
 
 	local init_col = range[2]
 	local init_row = range[1]
 
-	local classes = utils.split(str, " ", init_col, init_row)
+	local tw_classes = utils.split(input, " ", init_col, init_row)
 
-	for current, class in ipairs(classes) do
+	for current, tw_class in ipairs(tw_classes) do
 		tw.request("textDocument/hover", {
 			textDocument = vim.lsp.util.make_text_document_params(),
 			position = {
-				line = class.row,
-				character = class.col,
+				line = tw_class.row,
+				character = tw_class.col,
 			},
 		}, function(err, result, _, _)
 			if err then
@@ -187,18 +187,18 @@ M.parse_with_tailwind = function(params, cb)
 			end
 
 			if result == nil then
-				table.insert(unknown_classes, #unknown_classes + 1, class.str)
+				table.insert(unknown_classes, #unknown_classes + 1, tw_class.str)
 			else
-				local fresh_statements = vim.split(result.contents.value, "\n")
+				local fresh_css_classes = vim.split(result.contents.value, "\n")
 
-				for _, statement in ipairs(fresh_statements or {}) do
-					table.insert(main_statements, #main_statements + 1, statement)
+				for _, fresh_css_class in ipairs(fresh_css_classes or {}) do
+					table.insert(css_classes, #css_classes + 1, fresh_css_class)
 				end
 			end
 
 			-- Return when all classes have been processed
-			if current == #classes then
-				cb(main_statements, helper_classes, unknown_classes)
+			if current == #tw_classes then
+				cb(css_classes, unknown_classes)
 			end
 		end, bufnr)
 	end

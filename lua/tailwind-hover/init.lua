@@ -17,20 +17,14 @@ end
 function M.hover()
 	local bufnr = vim.api.nvim_get_current_buf()
 
-	local values, range = parser.get_values_at_cursor(bufnr)
+	local tw_classes, range = parser.get_tw_classes_at_cursor(bufnr)
 
-	if #values > 0 then
-		local params = {
-			str = values,
-			range = range,
-			bufnr = bufnr,
-		}
-
+	if #tw_classes > 0 then
 		local cb = function(results, unknown_classes)
 			hover.show(results, unknown_classes, options)
 		end
 
-		parser.parse_with_tailwind(params, cb)
+		parser.parse_with_tailwind({ input = tw_classes, range = range, bufnr = bufnr }, cb)
 	end
 end
 
