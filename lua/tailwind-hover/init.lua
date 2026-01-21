@@ -20,8 +20,8 @@ function M.hover()
 	local tw_classes, range = parser.get_tw_classes_at_cursor(bufnr)
 
 	if #tw_classes > 0 then
-		local cb = function(results, unknown_classes)
-			hover.show(results, unknown_classes, options)
+		local cb = function(css_classes, unknown_class_names)
+			hover.show(css_classes, unknown_class_names, options)
 		end
 
 		parser.parse_with_tailwind({ input = tw_classes, range = range, bufnr = bufnr }, cb)
