@@ -45,6 +45,18 @@ The currently supported languages are the following:
 
 Uses HTML parser as fallback.
 
+## Integrations
+
+### [hover.nvim](https://github.com/lewis6991/hover.nvim)
+
+```lua
+require('hover').config({
+  providers = {
+    "tailwind-hover.providers.hover",
+  }
+})
+```
+
 ## Acknowledgments
 
 Inspired by [tw-values.nvim](https://github.com/MaximilianLloyd/tw-values.nvim)
