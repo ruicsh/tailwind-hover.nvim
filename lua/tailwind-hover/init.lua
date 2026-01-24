@@ -2,7 +2,9 @@ local hover = require("tailwind-hover.hover")
 local parser = require("tailwind-hover.treesitter")
 
 local defaults = {
+	border = vim.o.winborder,
 	title = "",
+	fallback_to_lsp_hover = false,
 }
 
 local options = {}
@@ -25,6 +27,8 @@ function M.hover()
 		end
 
 		parser.parse_with_tailwind({ input = tw_classes, range = range, bufnr = bufnr }, cb)
+	elseif options.fallback_to_lsp_hover then
+		vim.lsp.buf.hover()
 	end
 end
 

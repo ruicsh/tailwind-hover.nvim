@@ -31,6 +31,20 @@ Press the shortcut again, while the floating preview window is open, and it will
 }
 ```
 
+## Options
+
+```lua
+opts = {
+    border = vim.o.winborder, -- Floating window border
+    title = "", -- Title of floating window
+    fallback_to_lsp_hover = false, -- Fallback to native vim.lsp.buf.hover
+}
+```
+
+### Keymaps
+
+There's no shortcut assigned by this plugin. You'll need to assign your own to `vim.cmd('TailwindHover')`. A possible setup is to use the default `K` for `vim.lsp.buf.hover` so that you use the same shortcut for all `lsp.hover` calls. For this to work, option `fallback_to_lsp_hover` needs to be set to `true` so that it calls `lsp.hover` if the cursor is not placed on an attrtibute's value with name `class` or `className`.
+
 ## Supported languages
 
 The currently supported languages are the following:
