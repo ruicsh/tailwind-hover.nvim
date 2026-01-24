@@ -10,7 +10,7 @@ It behaves just like the default `lsp.hover` feature.
 
 Choose your preferred shortcut to issue the command `TailwindHover`. Our choice is `<leader>K`, but it's not set by default, it needs your configuration.
 
-Press the shortcut on any `class` (or `className`) attribute containing Tailwind CSS classes and it will open the LSP floating window with the list of all TW classes and their corresponding CSS statements. Any classes unknown to TW will be listed last.
+Press the shortcut on any `class` (or `className`) attribute's value containing Tailwind CSS classes and it will open the LSP floating window with the list of all TW classes and their corresponding CSS statements. Any classes unknown to TW will be listed last.
 
 Press the shortcut again, while the floating preview window is open, and it will focus it (just like the default `K` behavior).
 
@@ -43,7 +43,9 @@ opts = {
 
 ### Keymaps
 
-There's no shortcut assigned by this plugin. You'll need to assign your own to `vim.cmd('TailwindHover')`. A possible setup is to use the default `K` for `vim.lsp.buf.hover` so that you use the same shortcut for all `lsp.hover` calls. For this to work, option `fallback_to_lsp_hover` needs to be set to `true` so that it calls `lsp.hover` if the cursor is not placed on an attrtibute's value with name `class` or `className`.
+There's no shortcut assigned by this plugin. You'll need to assign your own to `<cm>TailwindHover<cr>`.
+
+A possible setup is to use the default `K` for `vim.lsp.buf.hover` so that you use the same shortcut for all `lsp.hover` calls. For this to work, option `fallback_to_lsp_hover` needs to be set to `true` so that it calls `lsp.hover` as a fallback when the cursor is not placed on an attrtibute's value with name `class` or `className`.
 
 ## Supported languages
 
