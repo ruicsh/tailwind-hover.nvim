@@ -33,7 +33,7 @@ function M.show(css_classes, unknown_class_names, options)
 
 	local title = options.title
 	local longest = utils.get_longest(contents, #title) + 10
-	local height = #contents + 1
+	local height = #contents
 
 	local _, winid = vim.lsp.util.open_floating_preview(contents, "css", {
 		border = options.border,

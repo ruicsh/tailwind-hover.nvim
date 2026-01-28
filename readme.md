@@ -37,6 +37,7 @@ Press the shortcut again, while the floating preview window is open, and it will
 opts = {
     border = vim.o.winborder, -- Floating window border
     title = "", -- Title of floating window
+    fallback_cmd = nil, -- Fallback command to call if no Tailwind classes are found
     fallback_to_lsp_hover = false, -- Fallback to native vim.lsp.buf.hover
 }
 ```
