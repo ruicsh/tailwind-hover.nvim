@@ -1,0 +1,103 @@
+*tailwind-hover.txt*	Show Tailwind CSS styles in a hover window.
+
+==============================================================================
+INTRODUCTION                                           *tailwind-hover-intro*
+
+tailwind-hover.nvim is a Neovim plugin that shows consolidated Tailwind CSS
+styles applied to the element under the cursor in a floating window, similar
+to `vim.lsp.buf.hover()`.
+
+==============================================================================
+USAGE                                                  *tailwind-hover-usage*
+
+The plugin provides a command to trigger the hover window. It is recommended
+to map this command to a key of your choice.
+
+:TailwindHover                                        *:TailwindHover*
+    Shows Tailwind CSS styles for the classes at the cursor. If the floating
+    window is already open, focus will be moved into it.
+
+Example mapping:
+>lua
+    vim.keymap.set("n", "<leader>K", "<cmd>TailwindHover<cr>", { desc = "Tailwind: Hover" })
+<
+
+==============================================================================
+INSTALLATION                                           *tailwind-hover-installation*
+
+Using lazy.nvim:
+>lua
+    {
+        "ruicsh/tailwind-hover.nvim",
+        keys = {
+            { "<leader><s-k>", "<cmd>TailwindHover<cr>", desc = "Tailwind: Hover" },
+        },
+        opts = {},
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+        },
+    }
+<
+
+==============================================================================
+CONFIGURATION                                  *tailwind-hover-configuration*
+
+To configure the plugin, call the `setup` function:
+>lua
+    require("tailwind-hover").setup({
+        -- configuration options
+    })
+<
+
+Options:                                             *tailwind-hover-options*
+
+border (string|table)                                *tailwind-hover-border*
+    Border style for the floating window.
+    Default: `vim.o.winborder`
+
+title (string)                                        *tailwind-hover-title*
+    Title of the floating window.
+    Default: `""`
+
+fallback_cmd (string|nil)                      *tailwind-hover-fallback_cmd*
+    Command to execute if no Tailwind classes are found at the cursor.
+    Default: `nil`
+
+fallback_to_lsp_hover (boolean)       *tailwind-hover-fallback_to_lsp_hover*
+    If true, calls `vim.lsp.buf.hover()` when no Tailwind classes are found.
+    Default: `false`
+
+==============================================================================
+SUPPORTED LANGUAGES                            *tailwind-hover-languages*
+
+The plugin supports the following filetypes:
+- typescriptreact
+- typescript
+- astro
+- vue
+- svelte
+- templ
+- html (also used as fallback for unknown filetypes)
+
+==============================================================================
+INTEGRATIONS                                    *tailwind-hover-integrations*
+
+hover.nvim                                   *tailwind-hover-hover-nvim*
+
+You can use tailwind-hover as a provider for hover.nvim:
+>lua
+    require('hover').config({
+      providers = {
+        "tailwind-hover.providers.hover",
+      }
+    })
+<
+
+==============================================================================
+ABOUT                                                  *tailwind-hover-about*
+
+Inspired by tw-values.nvim (https://github.com/MaximilianLloyd/tw-values.nvim)
+
+Project home: https://github.com/ruicsh/tailwind-hover.nvim
+
+vim:tw=78:ts=8:ft=help:norl:
