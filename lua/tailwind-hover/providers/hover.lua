@@ -2,6 +2,7 @@
 -- https://github.com/lewis6991/hover.nvim
 
 local parser = require("tailwind-hover.treesitter")
+local lsp = require("tailwind-hover.lsp")
 
 local ENABLED_FILETYPES = {
 	"html",
@@ -45,7 +46,7 @@ return {
 				done({ lines = lines, filetype = "css" })
 			end
 
-			parser.parse_with_tailwind({ input = tw_classes, range = range, bufnr = bufnr }, cb)
+			lsp.parse_with_tailwind({ input = tw_classes, range = range, bufnr = bufnr }, cb)
 		else
 			done(nil)
 		end

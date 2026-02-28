@@ -8,13 +8,17 @@ M.get_tw_classes_at_cursor = function(bufnr)
 		return {}
 	end
 
-	local type = node:type()
-	if type ~= "string_fragment" and type ~= "attribute_value" then
+	local node_type = node:type()
+	if node_type ~= "string_fragment" and node_type ~= "attribute_value" then
 		return {}
 	end
 
 	-- Get the attribute node
-	local attribute = node:parent():parent()
+	local attribute = node:parent()
+	if attribute == nil then
+		return {}
+	end
+	attribute = attribute:parent()
 	if attribute == nil then
 		return {}
 	end

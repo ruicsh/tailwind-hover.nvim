@@ -34,7 +34,7 @@ M.parse_with_tailwind = function(params, cb)
 	local tw_classes = utils.split(input, " ", init_col, init_row)
 
 	for current, tw_class in ipairs(tw_classes) do
-		tw.request("textDocument/hover", {
+		tw:request("textDocument/hover", {
 			textDocument = vim.lsp.util.make_text_document_params(),
 			position = {
 				line = tw_class.row,
